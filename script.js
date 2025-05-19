@@ -50,10 +50,10 @@ const App = () => {
 
   if (!userLevel) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="card max-w-md text-center">
-          <h1 className="text-3xl font-bold mb-6">CodeQuest: C++</h1>
-          <p className="mb-4">Выберите ваш уровень знаний:</p>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="card text-center">
+          <h1 className="title">CodeQuest: C++</h1>
+          <p className="subtitle">Выбери свой уровень и начни путь к олимпиадам!</p>
           <div className="space-y-4">
             <button className="btn btn-primary w-full" onClick={() => selectLevel('Новичок')}>Новичок</button>
             <button className="btn btn-primary w-full" onClick={() => selectLevel('Средний')}>Средний</button>
@@ -66,49 +66,56 @@ const App = () => {
 
   if (currentLesson) {
     return (
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">{currentLesson.title}</h1>
-          <div className="text-right">
-            <p>Ранг: {rank}</p>
-            <p>XP: {xp}</p>
-          </div>
-        </div>
-        <div className="card mb-6">
-          <h2 className="text-xl font-semibold mb-2">Теория</h2>
-          <p>{currentLesson.theory}</p>
-        </div>
-        <div className="card mb-6">
-          <h2 className="text-xl font-semibold mb-2">Пример кода</h2>
-          <pre className="bg-gray-800 text-white p-4 rounded">{currentLesson.exampleCode}</pre>
-        </div>
-        <div className="card mb-6">
-          <h2 className="text-xl font-semibold mb-2">{currentLesson.task.title}</h2>
-          <p>{currentLesson.task.description}</p>
-          <p><strong>Ввод:</strong> {currentLesson.task.input}</p>
-          <p><strong>Вывод:</strong> {currentLesson.task.output}</p>
-          <button className="btn btn-primary mt-4" onClick={completeTask}>Отправить решение</button>
-        </div>
+      <div className="flex items-center justify-center min-h-screen py-8">
         <div className="card">
-          <h2 className="text-xl font-semibold mb-2">Тест</h2>
-          <p>{currentLesson.test.question}</p>
-          <div className="space-y-2">
-            {currentLesson.test.options.map((option, idx) => (
-              <button
-                key={idx}
-                className="btn btn-secondary w-full"
-                onClick={() => {
-                  if (option === currentLesson.test.answer) {
-                    setXp(xp + 20);
-                    alert('Правильно! +20 XP');
-                  } else {
-                    alert('Неправильно, попробуйте снова.');
-                  }
-                }}
-              >
-                {option}
-              </button>
-            ))}
+          <h1 className="title">{currentLesson.title}</h1>
+          <div className="flex justify-between mb-6">
+            <div>
+              <p className="subtitle">Ранг: {rank}</p>
+            </div>
+            <div className="text-right">
+              <p className="subtitle">XP: {xp}</p>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${(xp % 500) / 5}%` }}></div>
+              </div>
+            </div>
+          </div>
+          <div className="lesson-card">
+            <h2 className="text-2xl font-semibold mb-4">Теория</h2>
+            <p className="text-gray-700">{currentLesson.theory}</p>
+          </div>
+          <div className="lesson-card">
+            <h2 className="text-2xl font-semibold mb-4">Пример кода</h2>
+            <pre className="code-block">{currentLesson.exampleCode}</pre>
+          </div>
+          <div className="lesson-card">
+            <h2 className="text-2xl font-semibold mb-4">{currentLesson.task.title}</h2>
+            <p className="text-gray-700">{currentLesson.task.description}</p>
+            <p className="mt-2"><strong>Ввод:</strong> {currentLesson.task.input}</p>
+            <p><strong>Вывод:</strong> {currentLesson.task.output}</p>
+            <button className="btn btn-primary mt-6 w-full" onClick={completeTask}>Отправить решение</button>
+          </div>
+          <div className="lesson-card">
+            <h2 className="text-2xl font-semibold mb-4">Тест</h2>
+            <p className="text-gray-700">{currentLesson.test.question}</p>
+            <div className="space-y-2 mt-4">
+              {currentLesson.test.options.map((option, idx) => (
+                <button
+                  key={idx}
+                  className="btn btn-secondary w-full"
+                  onClick={() => {
+                    if (option === currentLesson.test.answer) {
+                      setXp(xp + 20);
+                      alert('Правильно! +20 XP');
+                    } else {
+                      alert('Неправильно, попробуйте снова.');
+                    }
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -116,19 +123,18 @@ const App = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">CodeQuest: C++</h1>
-        <div className="text-right">
-          <p>Ранг: {rank}</p>
-          <p>XP: {xp}</p>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="card text-center">
+        <h1 className="title">CodeQuest: C++</h1>
+        <p className="subtitle">Добро пожаловать, {userLevel}!</p>
+        <div className="progress-bar mx-auto max-w-xs">
+          <div className="progress-fill" style={{ width: `${(xp % 500) / 5}%` }}></div>
         </div>
-      </div>
-      <div className="card">
-        <h2 className="text-xl font-semibold mb-4">Добро пожаловать, {userLevel}!</h2>
-        <p className="mb-4">Начните своё путешествие в мир олимпиадного программирования!</p>
-        <button className="btn btn-primary" onClick={startLesson}>Начать урок: Переменные</button>
-        <button className="btn btn-secondary ml-4">PvP Бой (скоро)</button>
+        <p className="subtitle">Ранг: {rank} | XP: {xp}</p>
+        <div className="space-y-4">
+          <button className="btn btn-primary w-full" onClick={startLesson}>Начать урок: Переменные</button>
+          <button className="btn btn-secondary w-full">PvP Бой (скоро)</button>
+        </div>
       </div>
     </div>
   );
