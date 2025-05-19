@@ -1,13 +1,18 @@
 body {
   font-family: 'Inter', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {
-  @apply bg-white rounded-lg shadow-md p-6;
+  @apply bg-white rounded-xl shadow-lg p-8 max-w-2xl w-full mx-4;
 }
 
 .btn {
-  @apply px-4 py-2 rounded-md font-semibold transition;
+  @apply px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105 focus:outline-none;
 }
 
 .btn-primary {
@@ -16,4 +21,28 @@ body {
 
 .btn-secondary {
   @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
+
+.title {
+  @apply text-4xl font-bold text-center mb-6 text-gray-800;
+}
+
+.subtitle {
+  @apply text-xl text-center mb-4 text-gray-600;
+}
+
+.lesson-card {
+  @apply bg-gray-50 rounded-lg p-6 mb-6 border border-gray-200;
+}
+
+.code-block {
+  @apply bg-gray-800 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto;
+}
+
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2.5 mb-4;
+}
+
+.progress-fill {
+  @apply bg-blue-600 h-2.5 rounded-full transition-all;
 }
